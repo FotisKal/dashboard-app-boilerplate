@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Controllers\HomeController;
+use App\Controllers\SampleController;
 use Dotenv\Dotenv;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
@@ -19,6 +20,7 @@ $dotenv->load();
 $app = AppFactory::create();
 
 $app->get('/', [HomeController::class, 'index']);
+$app->get('/sample', [SampleController::class, 'index']);
 
 $twig = Twig::create(VIEW_PATH, [
     'cache'       => STORAGE_PATH . '/cache',
