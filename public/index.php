@@ -15,9 +15,7 @@ use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
-
-define('STORAGE_PATH', __DIR__ . '/../storage');
-define('VIEW_PATH', __DIR__ . '/../views');
+require __DIR__ . '/../configs/path_constants.php';
 
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
