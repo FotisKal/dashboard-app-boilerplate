@@ -2,13 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Config;
 use App\Controllers\HomeController;
 use App\Controllers\SampleController;
-use DI\Container;
-use Doctrine\DBAL\DriverManager;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMSetup;
 use Dotenv\Dotenv;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
@@ -20,13 +15,7 @@ require __DIR__ . '/../configs/path_constants.php';
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
-$container = new Container();
-
-$container->set(Config::class, fn() => new Config($_ENV));
-$container->set(EntityManager::class, fn(Config $config) => new EntityManager(
-    DriverManager::getConnection($config->db),
-    ORMSetup::createAttributeMetadataConfiguration([__DIR__ . '/../app/Entity'])
-));
+$container = require __DIR__ . '/../configs/container.php';
 
 AppFactory::setContainer($container);
 
