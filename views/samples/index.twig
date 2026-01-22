@@ -1,0 +1,42 @@
+{% extends 'layout.twig' %}
+
+{% block title %}
+    Samples
+{% endblock %}
+
+{% block content %}
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        table tr th, table tr td {
+            border: 1px #eee solid;
+            padding: 5px;
+        }
+    </style>
+    <table>
+        <thead>
+        <tr>
+            <th>Sample Title</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for sample in samples %}
+            <tr>
+                <td>{{ sample.title }}</td>
+                <td>{{ sample.created_at|date('m/d/Y') }}</td>
+                <td>{{ sample.updated_at|date('m/d/Y') }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">No Samples Found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
