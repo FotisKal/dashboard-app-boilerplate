@@ -11,13 +11,13 @@ use Slim\Views\Twig;
 
 class SampleController
 {
-    public function __construct(private readonly SampleService $sampleService)
+    public function __construct(private readonly Twig $twig, private readonly SampleService $sampleService)
     {
     }
 
     public function index(Request $request, Response $response, $args): Response
     {
-        return Twig::fromRequest($request)->render(
+        return $this->twig->render(
             $response,
             'samples/index.twig',
             ['samples' => $this->sampleService->getSamples()]

@@ -22,10 +22,5 @@ $app = AppFactory::create();
 
 $router($app);
 
-$twig = Twig::create(VIEW_PATH, [
-    'cache'       => STORAGE_PATH . '/cache',
-    'auto_reload' => true,
-]);
-
-$app->add(TwigMiddleware::create($app, $twig));
+$app->add(TwigMiddleware::create($app, $container->get(Twig::class)));
 $app->run();
