@@ -14,8 +14,10 @@ return [
         DriverManager::getConnection($config->db),
         ORMSetup::createAttributeMetadataConfiguration([__DIR__ . '/../app/Entity'])
     ),
-    Twig::class          => Twig::create(VIEW_PATH, [
-        'cache'       => STORAGE_PATH . '/cache',
-        'auto_reload' => true,
-    ]),
+    Twig::class          => function (Config $config) {
+        return Twig::create(VIEW_PATH, [
+            'cache'       => STORAGE_PATH . '/cache',
+            'auto_reload' => $config->environment === 'development',
+        ]);
+    },
 ];
