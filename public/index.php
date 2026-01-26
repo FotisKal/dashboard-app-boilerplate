@@ -13,8 +13,8 @@ require __DIR__ . '/../configs/path_constants.php';
 $dotenv = Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
-$container = require __DIR__ . '/../configs/container.php';
-$router    = require __DIR__ . '/../configs/routes.php';
+$container = require CONFIG_PATH . '/container.php';
+$router    = require CONFIG_PATH . '/routes.php';
 
 AppFactory::setContainer($container);
 
