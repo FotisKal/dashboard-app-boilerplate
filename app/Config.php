@@ -7,6 +7,8 @@ namespace App;
 /**
  * @property-read ?array $db
  * @property-read string $environment
+ * @property-read string $appName
+ * @property-read string $appVersion
  */
 class Config
 {
@@ -23,6 +25,8 @@ class Config
                 'driver'   => $env['DB_DRIVER'] ?? 'pdo_mysql',
             ],
             'environment' => $env['APP_ENVIRONMENT'] ?? 'production',
+            'appName'     => $env['APP_NAME'] ?? 'Dashboard Application',
+            'appVersion'  => $env['APP_VERSION'] ?? '1.0',
         ];
     }
 

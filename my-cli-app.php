@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Commands\SampleCommand;
+use App\Config;
 use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
 use Doctrine\Migrations\Configuration\Migration\PhpFile;
 use Doctrine\Migrations\DependencyFactory;
@@ -23,6 +25,7 @@ use Doctrine\Migrations\Tools\Console\Command\{
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
+use Symfony\Component\Console\Application;
 
 // replace with path to your own project bootstrap file
 $app       = require 'bootstrap.php';
@@ -50,9 +53,14 @@ $commands = [
     new SyncMetadataCommand($dependencyFactory),
     new ListCommand($dependencyFactory),
     new DiffCommand($dependencyFactory),
+    new SampleCommand(),
 ];
 
-ConsoleRunner::run(
-    new SingleManagerProvider($entityManager),
-    $commands
-);
+$appConfig   = $container->get(Config::class);
+$application = new Application($appConfig->appName, $appConfig->appVersion);
+
+ConsoleRunner::addCommands($application, new SingleManagerProvider($entityManager));
+
+$application->addCommands($commands);
+
+$application->run();
